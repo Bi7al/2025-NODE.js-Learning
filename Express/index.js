@@ -52,4 +52,25 @@ app.get('/viewtask/:filename', function (req, res) {
 })
 
 
+app.get('/edit/:filename', function (req, res) {
+    res.render("edit", { filename: req.params.filename });
+})
+
+
+
+
+app.post('/rename/:filename', function (req, res) {
+    fileSystem.rename(`./files/${req.params.filename}`, `./files/${req.body.newname}.txt`, function (error) {
+        if (error) {
+            console.log("Error in renaming file");
+
+        } else {
+            console.log("File Renamed Successfully");
+            res.redirect("/")
+        }
+    })
+
+})
+
+
 app.listen(3000);

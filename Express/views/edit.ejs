@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Landing Page</title>
+    <link rel="stylesheet" href="/stylesheets/stylesheet.css">
+</head>
+
+<body>
+    <form action="/rename/<%= filename %>" method="post">
+        <input type="text" placeholder="Previous Name" value="<%= filename %>" disabled>
+        <input type="text" placeholder="Enter New Name" name="newname">
+        <button type="submit">Rename</button>
+    </form>
+
+
+</body>
+
+</html>

@@ -15,7 +15,7 @@
         <button type="submit">Add Task</button>
     </form>
 
-    <div class="task">
+    <div class="tasks">
 
         <% if(files.length> 0){ %>
             <!--Return a Div  -->
@@ -23,11 +23,12 @@
 
             <%files.forEach((file)=>{%>
 
-                <div>
+                <div class="task">
                     <h1>
                         <%= file.split(".")[0]%>
                     </h1>
                     <a href="/viewtask/<%=file%>"> Readmore</a>
+                    <a href="/edit/<%=file%>"> Edit</a>
                 </div>
                 <%})%>
 
