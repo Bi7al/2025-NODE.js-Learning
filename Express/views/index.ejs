@@ -9,13 +9,39 @@
 </head>
 
 <body>
-    <form action="/CreateTask" method="get">
-        <input type="text" placeholder="Enter title here" name="title">
-        <textarea name="body" id=""></textarea>
+    <form action="/Create" method="get">
+        <input type="text" placeholder="Enter title here" name="title" required>
+        <textarea name="details" id="" required></textarea>
         <button type="submit">Add Task</button>
     </form>
 
     <div class="task">
+
+        <% if(files.length> 0){ %>
+            <!--Return a Div  -->
+
+
+            <%files.forEach((file)=>{%>
+
+                <div>
+                    <h1>
+                        <%= file.split(".")[0]%>
+                    </h1>
+                    <a href="/viewtask/<%=file%>"> Readmore</a>
+                </div>
+                <%})%>
+
+
+
+
+
+
+
+                    <%}else{%>
+                        <!-- Return a p tag -->
+                        <p>No tasks Added </p>
+                        <%}%>
+
 
     </div>
 </body>
