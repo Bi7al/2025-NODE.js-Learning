@@ -1,41 +1,32 @@
 const express = require('express');
+const path = require('path');
+const userModel = require("./mongodb/userModel")
 const app = express();
-const userModel = require('./userModel');
-app.get('/', function (req, res) {
+app.set("view engine", "ejs");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
-    res.send('Hello World');
-})
-
-app.get('/create', async (req, res) => {
-
-    let user = await userModel.create({
-        name: "Bilal",
-        email: "mbilal@gmail.com"
-    })
-    res.send(user);
-
-
-})
-app.get('/read', async (req, res) => {
-
+app.get('/', async function (req, res) {
     let users = await userModel.find();
-    res.send(users);
-
-
+    res.render("index", { users: users });
 })
-app.get('/update', async (req, res) => {
-
-    let updatedUser = await userModel.findOneAndUpdate({ email: "mbilal@gmail.com" }, { name: "ali" }, { new: true });
-    res.send(updatedUser);
-
-
-})
-app.get('/delete', async (req, res) => {
-
-    let deletedUser = await userModel.findOneAndDelete({ email: "mbilal@gmail.com" })
-    res.send(deletedUser);
-
-
+app.post('/create', async function (req, res) {
+    await userModel.create({
+        name: req.body.name,
+        email: req.body.email,
+    })
+    res.redirect('/')
 })
 
-app.listen(3000);
+app.get('/delete/:username', async function (req, res) {
+    await userModel.findOneAndDelete({ name: req.params.username })
+    res.redirect('/')
+})
+app.get('/update/:username', async function (req, res) {
+    res.redirect('/')
+})
+
+
+
+app.listen(3000)

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD WITH MONGO</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+
+    <nav><a onclick="openModal()">Create User +</a></nav>
+    <table>
+        <% if(users.length> 0){%>
+            <% users.forEach((user)=>{ %>
+                <tr>
+                    <td>
+                        <%= user.name%>
+                    </td>
+                    <td>
+                        <%= user.email %>
+                    </td>
+                    <td>
+                        <a href="/update/<%= user.name%>" class="red">Update</a>
+                    </td>
+                    <td>
+                        <a href="/delete/<%= user.name%>" class="black">Delete</a>
+                    </td>
+                </tr>
+                <%})%>
+
+                    <%}else{%>
+
+                        <td>
+                            <p>No Users in Database</p>
+                        </td>
+
+
+                        <%}%>
+
+    </table>
+
+
+
+
+
+
+
+
+
+    <!--  -->
+    <div class="modal" id="modal">
+        <form action="/create" method="post">
+            <input type="text" name="name" placeholder="Enter User Name">
+            <input type="email" name="email" placeholder="Enter your Email">
+            <button onclick="closeModal()">Create</button>
+        </form>
+    </div>
+    <script src="/javascipts/script.js"></script>
+</body>
+
+</html>
