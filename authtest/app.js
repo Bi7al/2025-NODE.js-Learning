@@ -48,11 +48,25 @@ app.post('/create', function (req, res) {
 
 
 })
-app.get('/login', function (req, res) {
+app.get('/login', (req, res) => {
+    res.render('login')
+})
+app.post('/login', async function (req, res) {
 
 
+    let { email, password } = req.body;
+    let user = await userModel.findOne({ email });
+    if (user) {
+        let isUserValid = bcrypt.compare(req.body.password, user.password);
+        if (isUserValid) {
+            console.log("User Validated")
+            const token = jwt.sign({ email: user.email }, "MYSECRET");
+            res.cookie("token", token);
+            res.redirect('/');
+        }
+    }
+    res.send("OOPS Something Went Wrong")
 
-    res.render("login");
 })
 
 app.get('/logout', (req, res) => {
